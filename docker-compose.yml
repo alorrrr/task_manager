@@ -1,0 +1,27 @@
+services:
+    db:
+        image: postgres:15
+        env_file:
+            - .env
+        environment:
+            POSTGRES_DB: ${DB_NAME}
+            POSTGRES_USER: ${DB_USER}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+        ports:
+            - "5432:5432"
+        volumes:
+            - pg_data: /var/lib/postgresql/data
+        restart: unless-stopped
+    fastapi:
+        build: .
+        ports:
+            - "8000:8000"
+        restart: unless-stopped
+        depends_on:
+            - db
+        env_file:
+            - .env
+        volumes:
+            - ./:/app
+volumes:
+    pg_data:
