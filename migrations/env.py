@@ -5,8 +5,7 @@ from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 from core.database import Base, DATABASE_URL
-from models import User  # noqa: F401
-
+from models import User, Project, Task, ProjectMembership  # noqa: F401
 from alembic import context
 
 # this is the Alembic Config object, which provides
