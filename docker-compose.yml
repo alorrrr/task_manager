@@ -10,7 +10,7 @@ services:
         ports:
             - "5432:5432"
         volumes:
-            - pg_data: /var/lib/postgresql/data
+            - pg_data:/var/lib/postgresql/data
         restart: unless-stopped
     fastapi:
         build: .
@@ -21,6 +21,7 @@ services:
             - db
         env_file:
             - .env
+        command: poetry run uvicorn main:app --host 0.0.0.0 --port 8000 --reload
         volumes:
             - ./:/app
 volumes:
